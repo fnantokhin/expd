@@ -3,6 +3,8 @@
 # This program is dedicated to the public domain under the CC0 license.
 
 """
+ver 0.1
+
 The project is based of https://habr.com/ru/post/341678/
 This bot is based of https://github.com/python-telegram-bot/python-telegram-bot/blob/master/examples/echobot.py (using python-telegram-bot)
 
@@ -39,7 +41,7 @@ ver 0.0
 import logging
 
 from telegram import ForceReply, Update
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+from telegram.ext import ApplicationHandlerStop, Application, TypeHandler, CommandHandler, ContextTypes, MessageHandler, filters
 import custom_config
 
 # Enable logging
@@ -53,11 +55,11 @@ SPECIAL_USERS = []  # Allows users
 
 async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Block bot for non AUTHENTICATED USERS"""
-    if update.effective_user.user_id in SPECIAL_USERS:
+    if update.effective_user.id in SPECIAL_USERS:
         pass
     else:
-    """Print back user id"""    
-        await update.effective_message.reply_text(update.effective_user.user_id)
+        """Print back user id"""    
+        await update.message.reply_text(update.effective_user.id)
         raise ApplicationHandlerStop
     
 # Define a few command handlers. These usually take the two arguments update and
@@ -74,13 +76,16 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
                                     "/help - send this message")
 
 async def last_snapshot(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    await update.message.reply_photo(open(custom_config.current_photo, 'rb'))
+    await update.message.reply_photo(open(custom_config.CURRENT_PHOTO, 'rb'))
 
 def main() -> None:
     """Start the bot."""
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("5356737695:AAH6oul0w4An3wp-tyq9QQP2Qw1Tte-F89c").build()
+    application = Application.builder().token(custom_config.BOT_TOKEN).build()
 
+    # before anything else assess if the current user is
+    # in the SPECIAL_USERS constant
+    application.add_handler(TypeHandler(Update, callback), -1)
     # on different commands - answer in Telegram
     application.add_handler(CommandHandler("start", start))
     application.add_handler(CommandHandler("snapshot", last_snapshot))
