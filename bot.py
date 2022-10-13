@@ -16,10 +16,20 @@ python-telegram-bot.org is used to build telegram bot, that will be acting as a 
 will run on an experimental debian bullseye server.
 
 Known bugs:
-ver 0.0
-no authentication
+none
 
 Usage:
+ver 0.3
+In case motion is detected, for all registred users in the "valid user ids" file send
+ver 0.2
+For all registred users in the "valid user ids" file send current webcam snapshot
+every x sec.
+ver 0.11
+Assess if the current user id is in a local "valid user ids" file before sending any sensitive
+information. Print user id and error message otherwise.
+ver 0.1
+Assess if the current user id is in a SPECIAL_USERS constant before sending any sensitive
+information. Print user id and error message otherwise.
 ver 0.0
 /start - activate bot 
 /snapshot - send last snapshot made by the debianpc webcam 
@@ -39,6 +49,17 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+SPECIAL_USERS = []  # Allows users
+
+async def callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Block bot for non AUTHENTICATED USERS"""
+    if update.effective_user.user_id in SPECIAL_USERS:
+        pass
+    else:
+    """Print back user id"""    
+        await update.effective_message.reply_text(update.effective_user.user_id)
+        raise ApplicationHandlerStop
+    
 # Define a few command handlers. These usually take the two arguments update and
 # context.
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
