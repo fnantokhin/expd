@@ -1,6 +1,13 @@
 # work in progress README
 
-bot ver 0.2
+bot ver 0.21
+
+## CHANGELOG
+ver 0.21
+>refactor /update x(int) into /update_photo x(int)
+>add simple logging.info() calls
+>reword docstrings and refactor /help
+>refactor remove_job_if_exists() to job_if_exists(..., remove = False)
 
 The project is based of https://habr.com/ru/post/341678/
 This bot is based of https://github.com/python-telegram-bot/
@@ -20,17 +27,21 @@ be acting as a remote front end and will run on an experimental
 debian bullseye server.
 
 ## Usage
->/start
+Commands will be executed only if the current user id is in the custom_config.py file.
 
->/debug
+>/start - activate surveillance bot
 
->/help
+>/debug - debug information
 
->TO_DO /update x
+>/help - print this
+
+>update_photo x(int) - every x seconds send the last snapshot made by the motion program\n"
+
 
 ## TEMP
 ### (TO_DO) ver 0.4
-Add custom reply keyboard with /help, /update commands.
+Add custom reply keyboard with /help, /update_photo, /update_motion commands.
+Add uptime output information to /help.
 
 ### (TO_DO) ver 0.3
 In case motion is detected, for all authorised users send last captured video.
