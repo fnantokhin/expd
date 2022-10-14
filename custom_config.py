@@ -1,1 +1,4 @@
-current_photo="frame_debugger.jpg" 
+CURRENT_PHOTO="photo.jpg"
+SPECIAL_USERS=[0, 1, 2]
+CURRENT_VIDEO="video.mkv"
+BOT_TOKEN="BOT_TOKEN"
