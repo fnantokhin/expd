@@ -1,13 +1,18 @@
 # work in progress README
 
-bot ver 0.21
+bot ver 0.3
 
 ## CHANGELOG
+ver 0.3
+>add global_update_motion x(int)
+>add global_update_motion information to /help
+>reword /help message
+
 ver 0.21
 >refactor /update x(int) into /update_photo x(int)
 >add simple logging.info() calls
 >reword docstrings and refactor /help
->refactor remove_job_if_exists() to job_if_exists(..., remove = False)
+>refactor remove_job_if_exists() to job_if_exists(..., remove=False)
 
 The project is based of https://habr.com/ru/post/341678/
 This bot is based of https://github.com/python-telegram-bot/
@@ -31,19 +36,19 @@ Commands will be executed only if the current user id is in the custom_config.py
 
 >/start - activate surveillance bot
 
->/debug - debug information
+>/debug - send debug information (current snapshot & current motion-movie)
+
+>update_photo x(int) - every x seconds: send the last snapshot made by the motion program to current user.
+
+>global_update_motion x(int) - every x seconds: check if a new motion-movie was made by the motion program. Send new movie to every authorised user then resume checks.
 
 >/help - print this
-
->update_photo x(int) - every x seconds send the last snapshot made by the motion program\n"
-
-
 ## TEMP
 ### (TO_DO) ver 0.4
 Add custom reply keyboard with /help, /update_photo, /update_motion commands.
 Add uptime output information to /help.
 
-### (TO_DO) ver 0.3
+### (14.10) ver 0.3
 In case motion is detected, for all authorised users send last captured video.
 
 ### (14.10) ver 0.2
