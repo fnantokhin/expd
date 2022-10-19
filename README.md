@@ -1,6 +1,8 @@
 # work in progress README
 
-bot ver 0.3
+# *** DOESN'T WORK YET ***
+ 
+bot ver 0.3 
 
 ## CHANGELOG
 ver 0.3
